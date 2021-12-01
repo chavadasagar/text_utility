@@ -164,10 +164,23 @@
   </body>
 </html>
 <script>
-    let upper = document.querySelector("is_upper");
-    let lower = document.querySelector("is_lower");
-
-   document.querySelector("is_upper").addEventListener("click",function(){
-    alert("hello");
-   });
+  function check() {
+    if (!document.textform.is_upper.checked && !document.textform.is_lower.checked && !document.textform.is_pun.checked) {
+      swal("Please Select Any Operation","","error");
+      return false;
+    } 
+  }
+  function anyone()
+  {
+    if(document.textform.is_lower.checked)
+    {
+      document.textform.is_upper.checked = false;
+      document.textform.is_lower.checked = true;
+    }
+    if(document.textform.is_upper.checked)
+    {
+      document.textform.is_lower.checked = false;
+      document.textform.is_upper.checked = true;
+    }
+  }
 </script>
