@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+
+    <!-- Bootstrap CSS -->
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+      integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+      crossorigin="anonymous"
+    />
+    <style>
+      button {
+        position: relative;
+        display: inline-block;
+        margin: 15px;
+        padding: 15px 30px;
+        text-align: center;
+        font-size: 18px;
+        letter-spacing: 1px;
+        text-decoration: none;
+        color: #725ac1;
+        background: transparent;
+        cursor: pointer;
+        transition: ease-out 0.5s;
+        border-radius: 30px;
+        border: 2px solid #725ac1;
+        border-radius: 10px;
+        box-shadow: inset 0 0 0 0 #725ac1;
+      }
+
+      button:hover {
+        color: white;
+        box-shadow: inset 0 -100px 0 0 #725ac1;
+      }
+
+      button:active {
+        transform: scale(0.9);
+      }
+
+      /* The switch - the box around the slider */
+      .switch {
+        font-size: 17px;
+        position: relative;
+        display: inline-block;
+        width: 3.5em;
+        height: 2em;
+      }
+
+      /* Hide default HTML checkbox */
+      .switch input {
+        opacity: 0;
+        width: 0;
+        height: 0;
+      }
+
+      /* The slider */
+      .slider {
+        position: absolute;
+        cursor: pointer;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: #ccc;
+        transition: 0.4s;
+        border-radius: 30px;
+      }
+
+      .slider:before {
+        position: absolute;
+        content: "";
+        height: 1.4em;
+        width: 1.4em;
+        border-radius: 20px;
+        left: 0.3em;
+        bottom: 0.3em;
+        background-color: white;
+        transition: 0.4s;
+      }
+
+      input:checked + .slider {
+        background-color: #2196f3;
+      }
+
+      input:focus + .slider {
+        box-shadow: 0 0 1px #2196f3;
+      }
+
+      input:checked + .slider:before {
+        transform: translateX(1.5em);
+      }
+    </style>
+    <title>Home</title>
+  </head>
+  <body>
+    <div class="container mt-2">
+      <h1 class="display-4 jumbotron">Text Utility</h1>
+    </div>
+
+    <div class="mt-2 container">
+      <form action="result" method="POST" name="textform">
+        {% csrf_token %}
+        <div class="form-group">
+          <label for="exampleFormControlTextarea1"
+            ><h1>Enter Your Text :</h1></label
+          >
+          <textarea
+            class="form-control"
+            id="exampleFormControlTextarea1"
+            rows="3"
+            style="margin-top: 0px; margin-bottom: 0px; height: 303px"
+            name="text"
+          ></textarea>
+          <br />
+          <br />
+          <label class="switch">
+            <input type="checkbox" name="is_pun" />
+            <span class="slider"></span> </label
+          >&nbsp;&nbsp;&nbsp;&nbsp; remove puncation marks
+          <br />
+          <label class="switch">
+            <input type="checkbox" name="is_upper" value="one" onclick="return anyone()"/>
+            <span class="slider"></span> </label
+          >&nbsp;&nbsp;&nbsp;&nbsp; Translate UpperCase
+          <br />
+          <label class="switch">
+            <input type="checkbox" name="is_lower" value="one" onclick="return anyone()"/>
+            <span class="slider"></span> </label
+          >&nbsp;&nbsp;&nbsp;&nbsp; Translate Lowercase
+          <br />
+          <br />
+          <button type="submit" id="btn" onclick="return check()">Result</button>
+        </div>
+      </form>
+    </div>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script
+      src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+      integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+      integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+      integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+      crossorigin="anonymous"
+    ></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="js/jquery-3.6.0.js"></script>
+    <!-- <script src="js/script.js"></script>   -->
+  </body>
+</html>
+<script>
+  function check() {
+    if (!document.textform.is_upper.checked && !document.textform.is_lower.checked && !document.textform.is_pun.checked) {
+      swal("Please Select Any Operation","","error");
+      return false;
+    } 
+  }
+  function anyone()
+  {
+    if(document.textform.is_lower.checked)
+    {
+      document.textform.is_upper.checked = false;
+      document.textform.is_lower.checked = true;
+    }
+    if(document.textform.is_upper.checked)
+    {
+      document.textform.is_lower.checked = false;
+      document.textform.is_upper.checked = true;
+    }
+  }
+</script>
